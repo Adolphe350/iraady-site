@@ -180,6 +180,13 @@ img {
   font-size: clamp(1rem, 2vw, 1.2rem);
 }
 
+.hero-note {
+  margin: 0.8rem 0 0;
+  color: var(--accent);
+  font-size: 0.83rem;
+  letter-spacing: 0.04em;
+}
+
 .hero-actions {
   margin-top: 2.1rem;
   display: flex;
@@ -968,63 +975,93 @@ img {
   outline: 2px solid rgba(15, 118, 110, 0.2);
 }
 
-.contact-card {
+.office-panel {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   background: #ffffff;
   box-shadow: var(--shadow);
   padding: 1.2rem;
+  display: grid;
+  gap: 1rem;
 }
 
-.contact-card h3 {
+.office-panel h3 {
   margin: 0;
   font-family: "Fraunces", serif;
-  font-size: 1.4rem;
+  font-size: 1.35rem;
 }
 
-.contact-list {
-  margin: 1rem 0 0;
+.office-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+
+.office-card {
+  border: 1px solid var(--border);
+  border-radius: 0.95rem;
+  background: #fcfbf7;
+  padding: 0.95rem;
+}
+
+.office-card h4 {
+  margin: 0;
+  font-family: "Fraunces", serif;
+  font-size: 1.05rem;
+}
+
+.office-tag {
+  margin: 0.32rem 0 0;
+  color: var(--accent);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.office-lines {
+  margin: 0.58rem 0 0;
   padding: 0;
   list-style: none;
   display: grid;
-  gap: 0.85rem;
+  gap: 0.18rem;
 }
 
-.contact-list li {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.62rem;
+.office-lines li,
+.office-card p {
+  margin: 0;
+  color: #4f4f4f;
+  font-size: 0.88rem;
 }
 
-.contact-list strong {
-  display: block;
-  font-size: 0.9rem;
+.office-card p + p {
+  margin-top: 0.32rem;
 }
 
-.contact-list p {
-  margin: 0.2rem 0 0;
-  color: var(--muted);
-  font-size: 0.9rem;
+.office-card strong {
+  color: #181818;
 }
 
-.contact-list a {
-  color: var(--muted);
-}
-
-.contact-socials {
-  margin-top: 1.1rem;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.55rem;
-}
-
-.contact-socials a {
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  padding: 0.35rem 0.7rem;
-  text-decoration: none;
+.office-card a {
   color: #3f3f3f;
-  font-size: 0.82rem;
+}
+
+.office-map {
+  margin-top: 0.52rem;
+  display: inline-flex;
+  text-decoration: none;
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 0.86rem;
+}
+
+.trusted-strip {
+  margin: 1rem 0 0;
+  border: 1px dashed rgba(15, 118, 110, 0.35);
+  border-radius: 0.9rem;
+  padding: 0.82rem 0.92rem;
+  background: rgba(15, 118, 110, 0.06);
+  color: #3d3d3d;
+  font-size: 0.88rem;
 }
 
 .contact-call {
@@ -1044,7 +1081,7 @@ img {
 
 .footer-grid {
   display: grid;
-  grid-template-columns: 1.4fr repeat(2, minmax(0, 1fr));
+  grid-template-columns: 1.4fr repeat(3, minmax(0, 1fr));
   gap: 1rem;
   padding-bottom: 1.1rem;
 }
@@ -1090,6 +1127,173 @@ img {
   margin: 0;
   font-size: 0.86rem;
   color: var(--muted);
+}
+
+.policy-main {
+  padding: 4.2rem 0 5rem;
+}
+
+.policy-article {
+  width: min(720px, 100%);
+  margin: 0 auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: #ffffff;
+  box-shadow: var(--shadow);
+  padding: clamp(1.2rem, 2.4vw, 2rem);
+}
+
+.policy-header h1 {
+  margin: 0;
+  font-family: "Fraunces", serif;
+  font-size: clamp(2.1rem, 4.2vw, 3rem);
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+}
+
+.policy-date {
+  margin: 0.62rem 0 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.policy-section + .policy-section {
+  margin-top: 1.3rem;
+  padding-top: 1.3rem;
+  border-top: 1px solid var(--border);
+}
+
+.policy-section h2 {
+  margin: 0;
+  font-family: "Fraunces", serif;
+  font-size: 1.24rem;
+}
+
+.policy-section p,
+.policy-section li {
+  margin: 0.55rem 0 0;
+  color: #4c4c4c;
+  font-size: 0.92rem;
+}
+
+.policy-section ul {
+  margin: 0.6rem 0 0;
+  padding-left: 1.2rem;
+  display: grid;
+  gap: 0.3rem;
+}
+
+.policy-section a {
+  color: var(--accent);
+}
+
+.thanks-main {
+  padding: 5.4rem 0 6rem;
+}
+
+.thanks-card {
+  width: min(720px, 100%);
+  margin: 0 auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: #ffffff;
+  box-shadow: var(--shadow);
+  padding: clamp(1.5rem, 2.5vw, 2.3rem);
+}
+
+.thanks-card h1 {
+  margin: 0;
+  font-family: "Fraunces", serif;
+  font-size: clamp(2.2rem, 4.4vw, 3.1rem);
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+}
+
+.thanks-card p {
+  margin: 0.85rem 0 0;
+  color: #4d4d4d;
+}
+
+.thanks-back {
+  margin-top: 1.25rem;
+  display: inline-flex;
+  text-decoration: none;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.cookie-banner {
+  position: fixed;
+  left: 24px;
+  right: 92px;
+  bottom: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  border: 1px solid #d7d0c3;
+  border-radius: 0.95rem;
+  background: rgba(255, 255, 255, 0.96);
+  padding: 0.82rem 0.92rem;
+  box-shadow: 0 18px 38px rgba(15, 15, 15, 0.12);
+  z-index: 64;
+}
+
+.cookie-banner[hidden] {
+  display: none;
+}
+
+.cookie-banner p {
+  margin: 0;
+  color: #3f3f3f;
+  font-size: 0.86rem;
+}
+
+.cookie-banner a {
+  color: var(--accent);
+}
+
+.cookie-banner button {
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: #0f0f0f;
+  color: #f7f5f0;
+  font-weight: 600;
+  padding: 0.46rem 0.85rem;
+  cursor: pointer;
+}
+
+.whatsapp-float {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  width: 56px;
+  height: 56px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  text-decoration: none;
+  background: #25d366;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.22);
+  z-index: 65;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  animation: whatsapp-pulse 2.8s ease-in-out infinite;
+}
+
+.whatsapp-float:hover,
+.whatsapp-float:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 34px rgba(0, 0, 0, 0.28);
+}
+
+@keyframes whatsapp-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
 }
 
 .modal {
@@ -1290,5 +1494,22 @@ img {
 
   .footer-bottom {
     flex-direction: column;
+  }
+
+  .office-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cookie-banner {
+    left: 12px;
+    right: 12px;
+    bottom: 86px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .whatsapp-float {
+    right: 16px;
+    bottom: 16px;
   }
 }
