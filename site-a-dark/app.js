@@ -15,6 +15,8 @@ const state = {
 const tabsHost = document.querySelector("[data-filter-tabs]");
 const gridHost = document.querySelector("[data-project-grid]");
 const projectCount = document.querySelector("[data-project-count]");
+const clientsHost = document.querySelector("[data-clients-grid]");
+const shopHost = document.querySelector("[data-shop-grid]");
 
 const modal = document.getElementById("checkout-modal");
 const modalTitle = document.getElementById("checkout-title");
@@ -49,6 +51,14 @@ function getFilteredProjects() {
     return state.projects;
   }
   return state.projects.filter((project) => project.group === state.activeFilter);
+}
+
+function getClientProjects() {
+  return state.projects.filter((project) => project.group === "Client");
+}
+
+function getShopProjects() {
+  return state.projects.filter((project) => typeof project.price === "number");
 }
 
 function renderTabs() {
@@ -133,6 +143,60 @@ function renderProjects() {
   gridHost.innerHTML = filtered.map((project) => buildCard(project)).join("");
 }
 
+function buildClientCard(project) {
+  const niche = project.niche ? project.niche : "Client project";
+  return `
+    <a class="client-card" href="${escapeHtml(project.url)}" target="_blank" rel="noopener noreferrer">
+      <h3 class="client-name">${escapeHtml(project.name)}</h3>
+      <span class="client-niche">${escapeHtml(niche)}</span>
+    </a>
+  `;
+}
+
+function renderClients() {
+  if (!clientsHost) {
+    return;
+  }
+
+  const clients = getClientProjects();
+  if (!clients.length) {
+    clientsHost.innerHTML = '<div class="empty-state">No client projects available yet.</div>';
+    return;
+  }
+
+  clientsHost.innerHTML = clients.map((project) => buildClientCard(project)).join("");
+}
+
+function buildShopCard(project) {
+  const shortDescription = (project.description || "").split(".")[0] || project.description || "";
+  return `
+    <article class="shop-card">
+      <h3 class="shop-name">${escapeHtml(project.name)}</h3>
+      <p class="shop-desc">${escapeHtml(shortDescription)}</p>
+      <div class="shop-meta">
+        <span class="shop-price">$${formatPrice(project.price)}</span>
+        <button class="btn-mini btn-buy" type="button" data-buy-id="${escapeHtml(
+          project.id
+        )}">Buy Now</button>
+      </div>
+    </article>
+  `;
+}
+
+function renderShop() {
+  if (!shopHost) {
+    return;
+  }
+
+  const shopItems = getShopProjects();
+  if (!shopItems.length) {
+    shopHost.innerHTML = '<div class="empty-state">No buyable projects available yet.</div>';
+    return;
+  }
+
+  shopHost.innerHTML = shopItems.map((project) => buildShopCard(project)).join("");
+}
+
 function openModal(project) {
   state.selectedProject = project;
   modal.classList.add("is-open");
@@ -198,11 +262,18 @@ function setupContactMailto() {
     const formData = new FormData(form);
     const name = (formData.get("name") || "").toString().trim();
     const email = (formData.get("email") || "").toString().trim();
+    const company = (formData.get("company") || "").toString().trim();
+    const projectType = (formData.get("projectType") || "").toString().trim();
+    const budget = (formData.get("budget") || "").toString().trim();
     const message = (formData.get("message") || "").toString().trim();
 
-    const subject = encodeURIComponent(`Project inquiry from ${name}`);
-    const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`);
-    window.location.href = `mailto:info@iraady.com?subject=${subject}&body=${body}`;
+    const subject = encodeURIComponent(`${projectType || "Project"} inquiry from ${name}`);
+    const body = encodeURIComponent(
+      `Name: ${name}\nEmail: ${email}\nCompany: ${company || "N/A"}\nProject Type: ${
+        projectType || "N/A"
+      }\nBudget: ${budget || "N/A"}\n\nMessage:\n${message}`
+    );
+    window.location.href = `mailto:hello@iraady.com?subject=${subject}&body=${body}`;
   });
 }
 
@@ -252,6 +323,22 @@ function setupEvents() {
 
     openModal(project);
   });
+
+  if (shopHost) {
+    shopHost.addEventListener("click", (event) => {
+      const button = event.target.closest("button[data-buy-id]");
+      if (!button) {
+        return;
+      }
+
+      const project = state.projects.find((item) => item.id === button.dataset.buyId);
+      if (!project || !isBuyable(project)) {
+        return;
+      }
+
+      openModal(project);
+    });
+  }
 
   modal.addEventListener("click", (event) => {
     if (event.target.closest("[data-modal-close]")) {
@@ -354,6 +441,8 @@ async function init() {
   state.projects = await loadProjects();
   renderTabs();
   renderProjects();
+  renderClients();
+  renderShop();
 }
 
 init();
